@@ -7,9 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Mapel extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     use HasFactory;
     //mapping ke tabel
-    protected $table = 'Mapel';
+    protected $table = 'mapel';
     //mapping ke kolom/fieldnya
-    protected $fillable = ['Kode_mapel','Nama_mapel'];
+    protected $fillable = [
+        'kode_mapel', 'nama_mapel'
+    ];
+    public $timestamps = false;
+    public function mapel()
+    {
+        return $this->hasMany(Mapel::class);
+    }
 }

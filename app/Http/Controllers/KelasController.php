@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//tambahan
+use Illuminate\Support\Facades\DB;
+use App\Models\Kelas;
 
 class KelasController extends Controller
 {
@@ -12,8 +15,9 @@ class KelasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {      
+        $kelas = Kelas::all();
+        return view('kelas.index', compact('kelas'));
     }
 
     /**
@@ -23,7 +27,7 @@ class KelasController extends Controller
      */
     public function create()
     {
-        //
+        return view('kelas.form');
     }
 
     /**
@@ -34,7 +38,16 @@ class KelasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
+        $request->validate([
+            'kode_kelas' => 'required|unique:kelas|max:10',
+            'nama_kelas' => 'required|max:45'            
+        ]);
+        
+        Kelas::create($request->all());
+
+        return redirect()->route('kelas.index')
+            ->with('success', 'Data Kelas Baru Berhasil Disimpan');
     }
 
     /**
@@ -45,7 +58,7 @@ class KelasController extends Controller
      */
     public function show($id)
     {
-        //
+       //
     }
 
     /**
@@ -56,7 +69,8 @@ class KelasController extends Controller
      */
     public function edit($id)
     {
-        //
+        $row = Kelas::find($id);
+        return view('kelas.form_edit', compact('row'));
     }
 
     /**
@@ -67,8 +81,17 @@ class KelasController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        
+        $request->validate([
+            'kode_kelas' => 'required|max:10',
+            'nama_kelas' => 'required|max:45'
+        ]);
+        
+        Kelas::find($id)->update($request->all());
+
+        return redirect()->route('kelas.index')
+            ->with('success', 'Data Kelas Berhasil Diubah');
     }
 
     /**
@@ -79,6 +102,23 @@ class KelasController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $row = Kelas::find($id);
+        
+        Kelas::where('id', $id)->delete();
+        return redirect()->route('kelas.index')
+            ->with('success', 'Data Kelas Berhasil Dihapus');
     }
+
+    // public function KelasPDF()
+    // {
+    //     $Kelas = Kelas::all();
+    //     $pdf = PDF::loadView('Kelas.KelasPDF', ['Kelas' => $Kelas]);
+    //     return $pdf->download('data_Kelas.pdf');
+    // }
+
+    // public function KelasExcel()
+    // {
+    //     return Excel::download(new KelasExport, 'data_Kelas.xlsx');
+    // }
 }

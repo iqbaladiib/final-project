@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//tambahan
+use Illuminate\Support\Facades\DB;
+use App\Models\Mapel;
 
 class MapelController extends Controller
 {
@@ -13,7 +16,15 @@ class MapelController extends Controller
      */
     public function index()
     {
-        //
+        //menampilkan seluruh data
+        //$Mapel = Mapel::all();
+        // $mapel = Mapel::all();
+        $mapel = Mapel::all();
+        return view('mapel.index', compact('mapel'));
+        
+ 
+ 
+
     }
 
     /**
@@ -23,7 +34,8 @@ class MapelController extends Controller
      */
     public function create()
     {
-        //
+        //arahkan ke form input data
+        return view('mapel.form');
     }
 
     /**
@@ -34,7 +46,17 @@ class MapelController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //proses input Mapel
+        $request->validate([
+            'kode_mapel' => 'required|unique:mapel|max:10',
+            'nama_mapel' => 'required|max:45'            
+        ]);
+        
+        //lakukan insert data dari request form
+        Mapel::create($request->all());
+
+        return redirect()->route('mapel.index')
+            ->with('success', 'Data Mapel Baru Berhasil Disimpan');
     }
 
     /**
@@ -45,7 +67,7 @@ class MapelController extends Controller
      */
     public function show($id)
     {
-        //
+       //
     }
 
     /**
@@ -56,7 +78,8 @@ class MapelController extends Controller
      */
     public function edit($id)
     {
-        //
+        $row = Mapel::find($id);
+        return view('mapel.form_edit', compact('row'));
     }
 
     /**
@@ -67,8 +90,17 @@ class MapelController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        //proses input pegawai
+        $request->validate([
+            'kode_mapel' => 'required|max:10',
+            'nama_mapel' => 'required|max:45'
+        ]);
+        //lakukan update data dari request form edit
+        Mapel::find($id)->update($request->all());
+
+        return redirect()->route('mapel.index')
+            ->with('success', 'Data Mapel Berhasil Diubah');
     }
 
     /**
@@ -79,6 +111,23 @@ class MapelController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //sebelum hapus data, hapus terlebih dahulu fisik file fotonya jika ada
+        $row = Mapel::find($id);
+        //setelah itu baru hapus data Mapel
+        Mapel::where('id', $id)->delete();
+        return redirect()->route('mapel.index')
+            ->with('success', 'Data Mapel Berhasil Dihapus');
     }
+
+    // public function MapelPDF()
+    // {
+    //     $Mapel = Mapel::all();
+    //     $pdf = PDF::loadView('mapel.MapelPDF', ['Mapel' => $Mapel]);
+    //     return $pdf->download('data_Mapel.pdf');
+    // }
+
+    // public function MapelExcel()
+    // {
+    //     return Excel::download(new MapelExport, 'data_Mapel.xlsx');
+    // }
 }

@@ -7,9 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Kelas extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     use HasFactory;
     //mapping ke tabel
-    protected $table = 'Kelas';
+    protected $table = 'kelas';
     //mapping ke kolom/fieldnya
-    protected $fillable = ['Kode_kelas','Nama_kelas'];
+    protected $fillable = [
+        'kode_kelas', 'nama_kelas'
+    ];
+    public $timestamps = false;
+    public function kelas()
+    {
+        return $this->hasMany(Kelas::class);
+    }
 }

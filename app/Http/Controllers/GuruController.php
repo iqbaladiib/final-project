@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//tambahan
+use Illuminate\Support\Facades\DB;
+use App\Models\Guru;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 class GuruController extends Controller
 {
@@ -12,8 +17,9 @@ class GuruController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {      
+        $guru = Guru::all();
+        return view('guru.index', compact('guru'));
     }
 
     /**
@@ -23,7 +29,7 @@ class GuruController extends Controller
      */
     public function create()
     {
-        //
+        return view('guru.form');
     }
 
     /**
@@ -34,7 +40,17 @@ class GuruController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // $request->validate([
+        //     'nama' => 'required',
+        //     'nip' => 'required|uniqu:guru|min:6',
+        //     'no_telp' => 'required',
+        //     'user_id' => 'required'            
+        // ]);
+        
+        // Guru::create($request->all());
+
+        // return redirect()->route('guru.index')
+        //     ->with('success', 'Data Guru Baru Berhasil Disimpan');
     }
 
     /**
@@ -45,7 +61,7 @@ class GuruController extends Controller
      */
     public function show($id)
     {
-        //
+       //
     }
 
     /**
@@ -56,7 +72,9 @@ class GuruController extends Controller
      */
     public function edit($id)
     {
-        //
+        $row = Guru::find($id);
+        $user = User::where('id', $row->user_id)->first(); // Mengambil data profile yang terkait dengan user
+        return view('profile.form_edit', compact('row','user'));
     }
 
     /**
@@ -67,8 +85,24 @@ class GuruController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        //
+    {   
+        $data_guru = [
+            'nama' => $request->nama,
+            'nip' => $request->nip,
+            'no_telp' => $request->no_telp
+        ];
+
+        $data_user = [
+            'email' => $request->email,
+            'username' => $request->username,
+            'password' => Hash::make($request->password)
+        ];
+        
+        Guru::find($id)->update($data_guru);
+        User::find($request->user_id)->update($data_user);
+
+        return redirect()->route('guru.edit',$id)
+            ->with('success', 'Profile Berhasil Diubah');
     }
 
     /**
@@ -79,6 +113,23 @@ class GuruController extends Controller
      */
     public function destroy($id)
     {
-        //
+        
+        $row = Guru::find($id);
+        
+        Guru::where('id', $id)->delete();
+        return redirect()->route('guru.index')
+            ->with('success', 'Data Guru Berhasil Dihapus');
     }
+
+    // public function GuruPDF()
+    // {
+    //     $Guru = Guru::all();
+    //     $pdf = PDF::loadView('Guru.GuruPDF', ['Guru' => $Guru]);
+    //     return $pdf->download('data_Guru.pdf');
+    // }
+
+    // public function GuruExcel()
+    // {
+    //     return Excel::download(new GuruExport, 'data_Guru.xlsx');
+    // }
 }

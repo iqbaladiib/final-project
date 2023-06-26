@@ -7,9 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Siswa extends Model
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     use HasFactory;
     //mapping ke tabel
-    protected $table = 'Siswa';
+    protected $table = 'siswa';
     //mapping ke kolom/fieldnya
-    protected $fillable = ['Nama','NIM', 'Email', 'Jenis Kelamin', 'Nama Orang Tua', 'No Telepon', 'Kelas_id','Kelas_idKelas','Mapel_idMapel','User_idUser'];
+    protected $fillable = [
+        'nama','nisn','nama_ortu','no_telp','user_id','kelas_id'
+    ];
+
+    public function siswa()
+    {
+        return $this->hasMany(Siswa::class);
+    }
 }
