@@ -20,7 +20,7 @@
 
                 <!-- Form Edit untuk Role Guru -->
                 @if(auth()->check() && auth()->user()->role == 'guru')
-                <form method="POST" action="{{ route('guru.update',$row->id)}}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('guru.update',Auth::user()->id)}}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -85,7 +85,7 @@
 
                 <!-- Form Edit untuk Role Siswa -->
                 @if(auth()->check() && auth()->user()->role == 'siswa')
-                <form method="POST" action="{{ route('siswa.update',$row->id)}}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('siswa.update',Auth::user()->id)}}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="mb-3">
@@ -167,7 +167,7 @@
                 @endif
 
                 @if(auth()->check() && auth()->user()->role == 'admin')
-                <form method="POST" action="{{ route('siswa.update',$row->id)}}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('siswa.update',Auth::user()->id)}}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')            
                     <div class="form-group">

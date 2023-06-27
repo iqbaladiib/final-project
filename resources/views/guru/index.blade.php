@@ -5,13 +5,7 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-flex justify-content-between">
-                        <h1 class="h3 mb-2 text-gray-800 my-auto">Data Informasi Guru</h1>
-                        <div class="p-3 my-auto">
-                            <a class="btn btn-primary" href=" {{ route('guru.create') }}">
-                                <i class="
-                                fas fa-fw fa-plus"></i> Tambah Data
-                            </a>
-                        </div>
+                        <h1 class="h3 mb-2 text-gray-800 my-auto">Data Informasi Guru</h1>                        
                     </div>
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the</p>
@@ -37,15 +31,6 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot class="text-center">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>NIP</th>
-                                            <th>Kontak</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         @php $no= 1; @endphp
                                         @foreach($guru as $row)
@@ -61,7 +46,11 @@
                                                     @csrf
                                                     @method('DELETE')                                                   
 
-                                                
+                                                    <!-- aksi untuk edit data -->
+                                                    <a class="btn btn-warning btn-sm" href=" {{ route('guru.edit',$row->id) }}">
+                                                        <i class='fas fa-fw fa-pen'></i>
+                                                    </a>
+                                                    &nbsp;
                                                     <!-- aksi untuk hapus data -->
                                                     <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin Data akan diHapus?')">
                                                         <i class='fas fa-fw fa-trash'></i>

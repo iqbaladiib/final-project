@@ -5,13 +5,7 @@
                 <div class="container-fluid">
                     <!-- Page Heading -->
                     <div class="d-flex justify-content-between">
-                        <h1 class="h3 mb-2 text-gray-800 my-auto">Data Mata Pelajaran</h1>
-                        <div class="p-3 my-auto">
-                            <a class="btn btn-primary" title="Tambah Jenis Barang" href=" {{ route('mapel.create') }}">
-                                <i class="
-                                fas fa-fw fa-plus"></i> Tambah Data
-                            </a>
-                        </div>
+                        <h1 class="h3 mb-2 text-gray-800 my-auto">Data Siswa</h1>                        
                     </div>
                     <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
                         For more information about DataTables, please visit the</p>
@@ -23,7 +17,7 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Data Tables Mata Pelajaran</h6>                            
+                            <h6 class="m-0 font-weight-bold text-primary">Data Tables Siswa</h6>                            
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -39,17 +33,6 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot class="text-center">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>NISN</th>
-                                            <th>Nama Orang Tua</th>
-                                            <th>Kontak</th>
-                                            <th>Kelas</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         @php $no= 1; @endphp
                                         @foreach($siswaJoin as $row)
@@ -67,7 +50,7 @@
                                                     @method('DELETE')                                                   
                                                 
                                                     <!-- aksi untuk hapus data -->
-                                                    <button type="submit" class="btn btn-danger btn-sm" title="Hapus Jenis Barang" onclick="return confirm('Anda Yakin Data akan diHapus?')">
+                                                    <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Anda Yakin Data akan diHapus?')">
                                                         <i class='fas fa-fw fa-trash'></i>
                                                     </button>
                                                 </form>

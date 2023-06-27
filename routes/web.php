@@ -35,10 +35,11 @@ Route::get('/dashboard', [App\Http\Controllers\DashboardController::class, 'inde
 
 Auth::routes();
 Route::prefix('dashboard')->middleware(['auth'])->group(function () {
-    Route::resource('/siswa', SiswaController::class)->middleware('role:siswa,admin');
+    Route::resource('/siswa', SiswaController::class)->middleware('role:admin,siswa');
     Route::resource('/mapel', MapelController::class)->middleware('role:admin,guru');
     Route::resource('/kelas', KelasController::class)->middleware('role:admin');
     Route::resource('/guru', GuruController::class)->middleware('role:admin,guru');
+    Route::get('/guru/{id}/edit', [GuruController::class, 'edit']);
     Route::resource('/jadwal', JadwalController::class)->middleware('role:admin,guru');
     Route::resource('/presensi', PresensiController::class)->middleware('role:admin,siswa,guru');
     Route::get('/presensiExportPDF', [PresensiController::class, 'exportPDF'])->name('exportPDF'); 

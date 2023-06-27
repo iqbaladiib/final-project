@@ -40,17 +40,6 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot class="text-center">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Nama</th>
-                                            <th>NISN</th>
-                                            <th>Mata Pelajaran</th>
-                                            <th>Jam Pelajaran</th>
-                                            <th>Status</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         @php $no= 1; @endphp
                                         @foreach($presensiJoin as $row)

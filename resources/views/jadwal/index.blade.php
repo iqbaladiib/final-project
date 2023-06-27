@@ -39,17 +39,6 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot class="text-center">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Hari</th>
-                                            <th>Jam Pelajaran</th>
-                                            <th>Kelas</th>
-                                            <th>Guru</th>
-                                            <th>Mapel</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         @php $no= 1; @endphp
                                         @foreach($jadwalJoin as $row)

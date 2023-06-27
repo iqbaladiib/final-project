@@ -78,8 +78,8 @@ class SiswaController extends Controller
      */
     public function edit($id)
     {
-        $row = Siswa::find($id);
-        $user = User::where('id', $row->user_id)->first(); 
+        $row = Siswa::where('user_id', $id)->first();
+        $user = User::where('id', $id)->first(); 
         $kelas = Kelas::all();
         return view('profile.form_edit', compact('row','user','kelas'));
     }
@@ -108,8 +108,8 @@ class SiswaController extends Controller
             'password' => Hash::make($request->password)
         ];
         
-        Siswa::find($id)->update($data_siswa);
-        User::find($request->user_id)->update($data_user);
+        Siswa::where('user_id', $id)->first()->update($data_siswa);
+        User::find($id)->update($data_user);
 
         return redirect()->route('siswa.edit',$id)
             ->with('success', 'Profile Berhasil Diubah');

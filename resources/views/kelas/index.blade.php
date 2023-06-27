@@ -36,14 +36,6 @@
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
-                                    <tfoot class="text-center">
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Kode</th>
-                                            <th>Nama</th>
-                                            <th>Aksi</th>
-                                        </tr>
-                                    </tfoot>
                                     <tbody>
                                         @php $no= 1; @endphp
                                         @foreach($kelas as $row)

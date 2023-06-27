@@ -72,8 +72,8 @@ class GuruController extends Controller
      */
     public function edit($id)
     {
-        $row = Guru::find($id);
-        $user = User::where('id', $row->user_id)->first(); // Mengambil data profile yang terkait dengan user
+        $row = Guru::where('user_id', $id)->first();
+        $user = User::where('id', $id)->first(); // Mengambil data profile yang terkait dengan user
         return view('profile.form_edit', compact('row','user'));
     }
 
@@ -98,8 +98,8 @@ class GuruController extends Controller
             'password' => Hash::make($request->password)
         ];
         
-        Guru::find($id)->update($data_guru);
-        User::find($request->user_id)->update($data_user);
+        Guru::where('user_id', $id)->first()->update($data_guru);
+        User::find($id)->update($data_user);
 
         return redirect()->route('guru.edit',$id)
             ->with('success', 'Profile Berhasil Diubah');
